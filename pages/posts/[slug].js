@@ -4,7 +4,6 @@ import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import Link from "next/link";
 import path from "path";
 import CustomLink from "../../components/CustomLink";
 import Layout from "../../components/layouts/posts";
@@ -21,6 +20,7 @@ const components = {
   h2: (props) => (<Heading variant="h2" fontSize={18} py={4}{...props} />),
   h3: (props) => (<Heading variant="h3" fontSize={15} py={4} {...props} />),
   p: (props) => (<Text py={2} fontSize={12} {...props} />),
+  li: (props) => (<Box as="li" py={1.5} fontSize={12} {...props} />),
   Paragraph: dynamic(() => import("../../components/Paragraph"), { ssr: false }),
   ResponsiveGrid: dynamic(() => import("../../components/ResponsiveGrid"), { ssr: false }),
   Head,
