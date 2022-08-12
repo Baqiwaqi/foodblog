@@ -1,17 +1,16 @@
+import path from "path";
+import fs from "fs";
+import matter from "gray-matter";
 import {
   Box,
-  Container,
   SimpleGrid,
   Heading,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { RecipesGridItem } from "../components/grid-item";
 import { postFilePaths, POSTS_PATH } from "../utils/mdxUtils";
-import path from "path";
-import fs from "fs";
-import matter from "gray-matter";
-import Link from "next/link";
+import { RecipesGridItem } from "../components/grid-item";
+import Section from "../components/animated/section";
 
 export default function Home({ posts }) {
   console.log(posts);
@@ -32,17 +31,21 @@ export default function Home({ posts }) {
           New Recipes
         </Heading>
         <SimpleGrid columns={[1, 1, 2]} gap={6}>
-          {posts.map((post) => (
-            <RecipesGridItem
-              key={post.slug}
-              post={post}
-              id={post.slug}
-              title={post.data.title}
-              thumbnail={post.data.thumbnail}
-            >
-              {post.data.description}
-            </RecipesGridItem>
-          ))}
+          {posts.map((post, index) => {
+            const delay = index / 10;
+            return (
+              <Section key={index} delay={delay}>
+                <RecipesGridItem
+                  post={post}
+                  id={post.slug}
+                  title={post.data.title}
+                  thumbnail={post.data.thumbnail}
+                >
+                  {post.data.description}
+                </RecipesGridItem>
+              </Section>
+            )
+          })}
         </SimpleGrid>
       </Box>
     </Box>

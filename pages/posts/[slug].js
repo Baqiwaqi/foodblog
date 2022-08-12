@@ -5,24 +5,19 @@ import { serialize } from "next-mdx-remote/serialize";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import path from "path";
-import CustomLink from "../../components/CustomLink";
+import CustomLink from "../../components/custom-link";
 import Layout from "../../components/layouts/posts";
 import { Heading, Text, Box } from "@chakra-ui/react";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 
-// Custom components/renderers to pass to MDX.
-// Since the MDX files aren't loaded by webpack, they have no knowledge of how
-// to handle import statements. Instead, you must include components in scope
-// here.
-const name = "John Doe";
 const components = {
   a: CustomLink,
   h2: (props) => (<Heading variant="h2" fontSize={18} py={4}{...props} />),
   h3: (props) => (<Heading variant="h3" fontSize={15} py={4} {...props} />),
   p: (props) => (<Text py={2} fontSize={12} {...props} />),
   li: (props) => (<Box as="li" py={1.5} fontSize={12} {...props} />),
-  Paragraph: dynamic(() => import("../../components/Paragraph"), { ssr: false }),
-  ResponsiveGrid: dynamic(() => import("../../components/ResponsiveGrid"), { ssr: false }),
+  Paragraph: dynamic(() => import("../../components/paragraph"), { ssr: false }),
+  ResponsiveGrid: dynamic(() => import("../../components/responsive-grid"), { ssr: false }),
   Head,
 };
 

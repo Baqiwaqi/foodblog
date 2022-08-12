@@ -19,7 +19,7 @@ const withMDX = require("@next/mdx")({
 });
 module.exports = withMDX({
   images: {
-    domains: ["greenkitchenstories.com"],
+    domains: ["greenkitchenstories.com", "images.unsplash.com"],
   },
   // Append the default value with md extensions
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
