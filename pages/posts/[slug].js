@@ -8,6 +8,7 @@ import Link from "next/link";
 import path from "path";
 import CustomLink from "../../components/CustomLink";
 import Layout from "../../components/layouts/posts";
+import { Heading, Text, Box } from "@chakra-ui/react";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 
 // Custom components/renderers to pass to MDX.
@@ -17,27 +18,18 @@ import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 const name = "John Doe";
 const components = {
   a: CustomLink,
-  // It also works with dynamically-imported components, which is especially
-  // useful for conditionally loading components for certain routes.
-  // See the notes in README.md for more details.
-  TestComponent: dynamic(() => import("../../components/TestComponent")),
+  h2: (props) => (<Heading variant="h2" fontSize={18} py={4}{...props} />),
+  h3: (props) => (<Heading variant="h3" fontSize={15} py={4} {...props} />),
+  p: (props) => (<Text py={2} fontSize={12} {...props} />),
+  Paragraph: dynamic(() => import("../../components/Paragraph"), { ssr: false }),
+  ResponsiveGrid: dynamic(() => import("../../components/ResponsiveGrid"), { ssr: false }),
   Head,
 };
 
 export default function PostPage({ source, frontMatter }) {
   return (
     <Layout meta={frontMatter}>
-      <header>
-        <nav>
-          <Link href="/">
-            <a>👈 Go back home</a>
-          </Link>
-        </nav>
-      </header>
-
-      <main>
-        <MDXRemote {...source} components={components} />
-      </main>
+      <MDXRemote {...source} components={components} />
     </Layout>
   );
 }

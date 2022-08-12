@@ -28,7 +28,7 @@ export default function Home({ posts }) {
         <Text>A simple food blog using next.js, chakra-ui, and mdx.</Text>
       </Box>
       <Box>
-        <Heading as="h4" size="sm" mb={2}>
+        <Heading as="h4" size="sm" mb={4}>
           New Recipes
         </Heading>
         <SimpleGrid columns={[1, 1, 2]} gap={6}>
