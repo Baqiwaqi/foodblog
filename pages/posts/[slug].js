@@ -18,8 +18,8 @@ const components = {
   h3: (props) => (<Heading variant="h3" fontSize={15} py={4} {...props} />),
   p: (props) => (<Text py={2} fontSize={12} {...props} />),
   li: (props) => (<Box as="li" py={1.5} fontSize={12} {...props} />),
-  Paragraph: dynamic(() => import("../../components/paragraph"), { ssr: false }),
-  ResponsiveGrid: dynamic(() => import("../../components/responsive-grid"), { ssr: false }),
+  Paragraph: (props) => (<Paragraph {...props} />),
+  ResponsiveGrid: (props) => (<ResponsiveGrid {...props} />),
   Head,
 };
 
