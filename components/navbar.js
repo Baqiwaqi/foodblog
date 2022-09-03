@@ -13,7 +13,7 @@ import {
   IconButton,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
+import { HamburgerIcon } from "@chakra-ui/icons/";
 import Logo from "../components/logo";
 import ThemeToggleButton from "./theme-toggle-button";
 
@@ -67,14 +67,8 @@ const NavBar = (props) => {
           flexGrow={1}
           mt={{ base: 4, nmd: 0 }}
         >
-          <LinkItem href="/works" path={path}>
-            Latest
-          </LinkItem>
-          <LinkItem href="/posts" path={path}>
+          <LinkItem href="/" path={path}>
             Recipes
-          </LinkItem>
-          <LinkItem href="/about" path={path}>
-            About
           </LinkItem>
         </Stack>
         <Box flex={1} align="right">
@@ -89,17 +83,9 @@ const NavBar = (props) => {
               />
               <MenuList>
                 <NextLink href="/" passHref>
-                  <MenuItem as={Link}>About</MenuItem>
+                  <MenuItem as={Link}>Recipes</MenuItem>
                 </NextLink>
-                <NextLink href="/works" passHref>
-                  <MenuItem as={Link}>Works</MenuItem>
-                </NextLink>
-                <NextLink href="/posts" passHref>
-                  <MenuItem as={Link}>Posts</MenuItem>
-                </NextLink>
-                <MenuItem as={Link} href="https://github.com/Baqiwaqi">
-                  View Source
-                </MenuItem>
+
               </MenuList>
             </Menu>
           </Box>

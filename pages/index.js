@@ -13,7 +13,6 @@ import { RecipesGridItem } from "../components/grid-item";
 import Section from "../components/animated/section";
 
 export default function Home({ posts }) {
-  console.log(posts);
   return (
     <Box>
       <Box
@@ -24,11 +23,11 @@ export default function Home({ posts }) {
         align="center"
         shadow="md"
       >
-        <Text>A simple food blog using next.js, chakra-ui, and mdx.</Text>
+        <Text>Welcome, here we cook and eat healthy and simple vegan food.</Text>
       </Box>
       <Box>
         <Heading as="h4" size="sm" mb={4}>
-          New Recipes
+          Recipes
         </Heading>
         <SimpleGrid columns={[1, 1, 2]} gap={6}>
           {posts.map((post, index) => {
@@ -64,5 +63,9 @@ export async function getStaticProps({ params }) {
     };
   });
 
-  return { props: { posts: posts } };
+  return {
+    props: {
+      posts: posts
+    }
+  };
 }
