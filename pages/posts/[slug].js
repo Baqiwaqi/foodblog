@@ -12,13 +12,15 @@ import ResponsiveGrid from "../../components/responsive-grid";
 import { Heading, Text, Box } from "@chakra-ui/react";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 
+const DynamicPragraph = dynamic(() => import("../../components/paragraph"), { ssr: false });
+
 const components = {
   a: CustomLink,
   h2: (props) => (<Heading variant="h2" fontSize={18} py={4}{...props} />),
   h3: (props) => (<Heading variant="h3" fontSize={15} py={4} {...props} />),
   p: (props) => (<Text py={2} fontSize={12} {...props} />),
   li: (props) => (<Box as="li" py={1.5} fontSize={12} {...props} />),
-  Paragraph: (props) => (<Paragraph {...props} />),
+  Paragraph: (props) => (<DynamicPragraph {...props} />),
   ResponsiveGrid: (props) => (<ResponsiveGrid {...props} />),
   Head,
 };
