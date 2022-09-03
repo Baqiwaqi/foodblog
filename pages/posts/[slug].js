@@ -1,28 +1,21 @@
 import fs from "fs";
 import matter from "gray-matter";
+import path from "path";
+
 import Head from "next/head";
 
+
+import CustomLink from "../../components/custom-link";
+import Layout from "../../components/layouts/posts";
+
+import ResponsiveGrid from "../../components/responsive-grid";
+import Paragraph from "../../components/paragraph-section";
+
+import { Heading, Text, Box } from "@chakra-ui/react";
+import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 
-import path from "path";
-import CustomLink from "../../components/custom-link";
-import Layout from "../../components/layouts/posts";
-import ResponsiveGrid from "../../components/responsive-grid";
-import { Heading, Text, Box } from "@chakra-ui/react";
-import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
-
-
-export const ParagraphSection = (props) => {
-  return (
-    <Box>
-      <Heading fontSize={16} py={4}>{props.title}</Heading>
-      <Text fontSize={12} px={4}>
-        {props.children}
-      </Text>
-    </Box>
-  );
-}
 
 const components = {
   a: CustomLink,
@@ -30,7 +23,7 @@ const components = {
   h3: (props) => (<Heading variant="h3" fontSize={15} py={4} {...props} />),
   p: (props) => (<Text py={2} fontSize={12} {...props} />),
   li: (props) => (<Box as="li" py={1.5} fontSize={12} {...props} />),
-  Paragraph: (props) => (<ParagraphSection {...props} />),
+  Paragraph: (props) => (<Paragraph {...props} />),
   ResponsiveGrid: (props) => (<ResponsiveGrid {...props} />),
   Head,
 };
