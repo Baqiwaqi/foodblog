@@ -1,12 +1,14 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
 
-export default function Paragraph({ title, children }) {
+const Paragraph = (props) => {
   return (
     <Box>
-      <Heading fontSize={16} py={4}>{title}</Heading>
+      <Heading fontSize={16} py={4}>{props.title}</Heading>
       <Text fontSize={12} px={4}>
-        {children}
+        {props.children}
       </Text>
     </Box>
   );
 }
+
+export default Paragraph;

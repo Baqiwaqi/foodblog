@@ -7,7 +7,6 @@ import Head from "next/head";
 import path from "path";
 import CustomLink from "../../components/custom-link";
 import Layout from "../../components/layouts/posts";
-import Paragraph from "../../components/paragraph";
 import ResponsiveGrid from "../../components/responsive-grid";
 import { Heading, Text, Box } from "@chakra-ui/react";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
