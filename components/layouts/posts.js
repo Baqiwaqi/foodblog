@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Box, Container, Heading, Text, SimpleGrid, Icon } from "@chakra-ui/react";
 import { BsPeople, BsClock } from "react-icons/bs";
+
 export default function PostLayout({ children, meta }) {
   return (
     <Container maxW="container.lg">

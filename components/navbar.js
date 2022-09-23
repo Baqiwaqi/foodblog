@@ -59,7 +59,8 @@ const NavBar = (props) => {
             <Logo />
           </Heading>
         </Flex>
-        <Stack
+
+        {/* <Stack
           direction={{ base: "column", md: "row" }}
           display={{ base: "none", md: "flex" }}
           width={{ base: "full", md: "auto" }}
@@ -68,10 +69,11 @@ const NavBar = (props) => {
           mt={{ base: 4, nmd: 0 }}
         >
           <LinkItem href="/" path={path}>
-            Recipes
+            Recepten
           </LinkItem>
-        </Stack>
-        <Box flex={1} align="right">
+        </Stack> */}
+
+        {/* <Box flex={1} align="right">
           <ThemeToggleButton />
           <Box ml={2} display={{ base: "inline-block", md: "none" }}>
             <Menu>
@@ -83,13 +85,13 @@ const NavBar = (props) => {
               />
               <MenuList>
                 <NextLink href="/" passHref>
-                  <MenuItem as={Link}>Recipes</MenuItem>
+                  <MenuItem as={Link}>Recepten</MenuItem>
                 </NextLink>
 
               </MenuList>
             </Menu>
           </Box>
-        </Box>
+        </Box> */}
       </Container>
     </Box>
   );

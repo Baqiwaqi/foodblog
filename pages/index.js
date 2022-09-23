@@ -15,7 +15,7 @@ import Section from "../components/animated/section";
 export default function Home({ posts }) {
   return (
     <Box>
-      <Box
+      {/* <Box
         borderRadius="lg"
         bg={useColorModeValue("whiteAlpha.500", "whiteAlpha.200")}
         p={3}
@@ -24,11 +24,11 @@ export default function Home({ posts }) {
         shadow="md"
       >
         <Text>Welcome, here we cook and eat healthy and simple vegan food.</Text>
-      </Box>
+      </Box> */}
       <Box>
-        <Heading as="h4" size="sm" mb={4}>
-          Recipes
-        </Heading>
+        {/* <Heading as="h4" size="sm" mb={4}>
+          Recepten
+        </Heading> */}
         <SimpleGrid columns={[1, 1, 2]} gap={6}>
           {posts.map((post, index) => {
             const delay = index / 10;

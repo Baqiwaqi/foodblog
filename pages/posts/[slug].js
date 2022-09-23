@@ -1,13 +1,9 @@
-import fs from "fs";
-import matter from "gray-matter";
-import path from "path";
-
 import Head from "next/head";
-
+import fs from "fs";
+import path from "path";
 
 import CustomLink from "../../components/custom-link";
 import Layout from "../../components/layouts/posts";
-
 import ResponsiveGrid from "../../components/responsive-grid";
 import Paragraph from "../../components/paragraph-section";
 
@@ -15,7 +11,7 @@ import { Heading, Text, Box } from "@chakra-ui/react";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
-
+import matter from "gray-matter";
 
 const components = {
   a: CustomLink,
