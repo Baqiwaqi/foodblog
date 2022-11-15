@@ -2,70 +2,57 @@ import path from "path";
 import fs from "fs";
 import matter from "gray-matter";
 import {
-  Box,
-  SimpleGrid,
-  Heading,
-  Text,
-  useColorModeValue,
+   Box,
+   SimpleGrid,
+   Heading,
+   Text,
+   useColorModeValue,
 } from "@chakra-ui/react";
 import { postFilePaths, POSTS_PATH } from "../utils/mdxUtils";
 import { RecipesGridItem } from "../components/grid-item";
 import Section from "../components/animated/section";
 
 export default function Home({ posts }) {
-  return (
-    <Box>
-      {/* <Box
-        borderRadius="lg"
-        bg={useColorModeValue("whiteAlpha.500", "whiteAlpha.200")}
-        p={3}
-        mb={6}
-        align="center"
-        shadow="md"
-      >
-        <Text>Welcome, here we cook and eat healthy and simple vegan food.</Text>
-      </Box> */}
+   return (
       <Box>
-        {/* <Heading as="h4" size="sm" mb={4}>
-          Recepten
-        </Heading> */}
-        <SimpleGrid columns={[1, 1, 2]} gap={6}>
-          {posts.map((post, index) => {
-            const delay = index / 10;
-            return (
-              <Section key={index} delay={delay}>
-                <RecipesGridItem
-                  post={post}
-                  id={post.slug}
-                  title={post.data.title}
-                  thumbnail={post.data.thumbnail}
-                >
-                  {post.data.description}
-                </RecipesGridItem>
-              </Section>
-            )
-          })}
-        </SimpleGrid>
+         <Box>
+            <SimpleGrid columns={[1, 2, 3]} gap={6}>
+               {posts.map((post, index) => {
+                  const delay = index / 10;
+                  return (
+                     <Section key={index} delay={delay}>
+                        <RecipesGridItem
+                           post={post}
+                           id={post.slug}
+                           title={post.data.title}
+                           thumbnail={post.data.thumbnail}
+                        >
+                           {post.data.description}
+                        </RecipesGridItem>
+                     </Section>
+                  )
+               })}
+            </SimpleGrid>
+         </Box>
       </Box>
-    </Box>
-  );
+   );
 }
 
 export async function getStaticProps({ params }) {
-  const posts = postFilePaths.map((filePath) => {
-    const source = fs.readFileSync(path.join(POSTS_PATH, filePath));
-    const { content, data } = matter(source);
+   const posts = postFilePaths.map((filePath) => {
+      const source = fs.readFileSync(path.join(POSTS_PATH, filePath));
+      const { content, data } = matter(source);
 
-    return {
-      content,
-      data,
-      filePath,
-    };
-  });
+      return {
+         content,
+         data,
+         filePath,
+      };
+   });
 
-  return {
-    props: {
-      posts: posts
-    }
-  };
+   return {
+      props: {
+         posts: posts
+      }
+   };
 }
