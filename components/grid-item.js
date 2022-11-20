@@ -4,7 +4,7 @@ import { Box, LinkBox, LinkOverlay, Text } from "@chakra-ui/react";
 
 export const RecipesGridItem = ({ children, post, id, title, thumbnail }) => {
    return (
-      <Box w="100%" maxHeight={300} borderRadius="lg" shadow="md" p={3} >
+      <Box w="100%" maxHeight={310} borderRadius="lg" shadow="md" p={3} >
          <NextLink
             as={`/posts/${post.filePath.replace(/\.mdx?$/, "")}`}
             href={`/posts/[slug]`}
@@ -35,10 +35,10 @@ export const RecipesGridItem = ({ children, post, id, title, thumbnail }) => {
 
 export const NotionGridItem = ({ children, post, id, title, thumbnail }) => {
    return (
-      <Box w="100%" maxHeight={300} borderRadius="lg" shadow="md" p={3} >
+      <Box w="100%" maxHeight={310} borderRadius="lg" shadow="md" p={3} >
          <NextLink
-            as={`/posts/${id}`}
-            href={`/posts/[slug]`}
+            as={`/notions/${id}`}
+            href={`/notions/[slug]`}
          >
             <LinkBox cursor="pointer">
                <Image

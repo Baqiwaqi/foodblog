@@ -2,12 +2,7 @@ import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import Section from "../components/animated/section";
 import { NotionGridItem } from "../components/grid-item";
 // Notion client
-import { Client } from "@notionhq/client";
-
-const notion = new Client({
-   auth: "secret_MDPxaQwOwwakhVNOHhBH53aRwixax7ERiYoY7JStd9s"
-});
-
+import { notion } from "../server/db/client";
 
 const NotionBlogPage = (posts) => {
    return (
