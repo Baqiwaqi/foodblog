@@ -29,6 +29,14 @@ const ReceiptPage = ({ receipt, blockChildren }) => {
                );
             }
 
+            if (block.type === "heading_1") {
+               return (
+                  <Heading variant="h1" fontSize={21} pt={4} pb={2} key={block.id}>
+                     {block.heading_1.rich_text[0].plain_text}
+                  </Heading>
+               )
+            }
+
             if (block.type === "heading_2") {
                return (
                   <Heading variant="h2" fontSize={18} pt={4} pb={2} key={block.id}>
