@@ -68,9 +68,8 @@ const ReceiptPage = ({ receipt, blockChildren }) => {
 
 export default ReceiptPage
 
-export const getServerSideProps = async (context) => {
-   // get slug from context
-   const { slug } = context.query;
+export const getStaticProps = async (context) => {
+   const { slug } = context.params;
    // get notion page
    const response = await notion.pages.retrieve({
       page_id: slug
@@ -87,4 +86,22 @@ export const getServerSideProps = async (context) => {
       }
    }
 
+}
+
+export const getStaticPaths = async () => {
+   const dbID = "42572b66501d405798dfd90a51b13415"
+   const response = await notion.databases.query({
+      database_id: dbID
+   });
+
+   const paths = response.results.map((post) => {
+      return {
+         params: { slug: post.id }
+      }
+   });
+
+   return {
+      paths,
+      fallback: "blocking"
+   }
 }
