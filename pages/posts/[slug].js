@@ -83,7 +83,8 @@ export const getStaticProps = async (context) => {
       props: {
          receipt: response,
          blockChildren: blockChildren
-      }
+      },
+      revalidate: 10,
    }
 
 }
