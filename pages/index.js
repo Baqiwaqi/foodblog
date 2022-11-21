@@ -1,58 +1,47 @@
-import path from "path";
-import fs from "fs";
-import matter from "gray-matter";
-import {
-   Box,
-   SimpleGrid,
-   Heading,
-   Text,
-   useColorModeValue,
-} from "@chakra-ui/react";
-import { postFilePaths, POSTS_PATH } from "../utils/mdxUtils";
-import { RecipesGridItem } from "../components/grid-item";
+import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import Section from "../components/animated/section";
+import GridItem from "../components/grid-item";
+// Notion client
+import { notion } from "../server/db/client";
 
-export default function Home({ posts }) {
+const Home = (posts) => {
    return (
       <Box>
-         <Box>
-            <SimpleGrid columns={[1, 2, 3]} gap={6}>
-               {posts.map((post, index) => {
-                  const delay = index / 10;
-                  return (
-                     <Section key={index} delay={delay}>
-                        <RecipesGridItem
-                           post={post}
-                           id={post.slug}
-                           title={post.data.title}
-                           thumbnail={post.data.thumbnail}
-                        >
-                           {post.data.description}
-                        </RecipesGridItem>
-                     </Section>
-                  )
-               })}
-            </SimpleGrid>
-         </Box>
+         <SimpleGrid columns={[1, 2, 3]} gap={6}>
+            {posts.posts.map((post, index) => {
+               const delay = index / 10;
+               return (
+                  <Section key={index} delay={delay}>
+                     <GridItem
+                        post={post}
+                        id={post.id}
+                        title={post.properties.name.title[0].plain_text}
+                        thumbnail={post.properties.URL.url}
+                     >
+                        {post.properties.description.rich_text[0].plain_text}
+                     </GridItem>
+                  </Section>
+               )
+            })}
+         </SimpleGrid>
       </Box>
-   );
+   )
 }
 
-export async function getStaticProps({ params }) {
-   const posts = postFilePaths.map((filePath) => {
-      const source = fs.readFileSync(path.join(POSTS_PATH, filePath));
-      const { content, data } = matter(source);
+export default Home;
 
-      return {
-         content,
-         data,
-         filePath,
-      };
+export const getServerSideProps = async () => {
+   const dbID = "42572b66501d405798dfd90a51b13415"
+   const response = await notion.databases.query({
+      database_id: dbID
    });
-
+   console.log(response);
    return {
       props: {
-         posts: posts
+         posts: response.results
       }
-   };
+   }
 }
+
+
+

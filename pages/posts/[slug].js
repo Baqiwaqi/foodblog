@@ -1,69 +1,90 @@
-import Head from "next/head";
-import fs from "fs";
-import path from "path";
+import { Box, Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import { notion } from "../../server/db/client";
+import LayOut from "../../components/layouts/notions";
 
-import CustomLink from "../../components/custom-link";
-import Layout from "../../components/layouts/posts";
-import ResponsiveGrid from "../../components/responsive-grid";
-import Paragraph from "../../components/paragraph-section";
+const ReceiptPage = ({ receipt, blockChildren }) => {
+   const { properties } = receipt;
+   let listNumber = 0;
 
-import { Heading, Text, Box } from "@chakra-ui/react";
-import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
-import { MDXRemote } from "next-mdx-remote";
-import { serialize } from "next-mdx-remote/serialize";
-import matter from "gray-matter";
+   return (
+      <LayOut
+         thumbnail={properties.URL?.url}
+         title={properties.name.title[0]?.plain_text}
+         description={properties.description.rich_text[0]?.plain_text}
+         time={properties.time_in_minutes.rich_text[0]?.plain_text}
+         servings={properties.servings.rich_text[0]?.plain_text}
+      >
+         {blockChildren.results.map((block) => {
 
-const components = {
-  a: CustomLink,
-  h2: (props) => (<Heading variant="h2" fontSize={18} py={4}{...props} />),
-  h3: (props) => (<Heading variant="h3" fontSize={15} py={4} {...props} />),
-  p: (props) => (<Text py={2} fontSize={12} {...props} />),
-  li: (props) => (<Box as="li" py={1.5} fontSize={12} {...props} />),
-  Paragraph: (props) => (<Paragraph {...props} />),
-  ResponsiveGrid: (props) => (<ResponsiveGrid {...props} />),
-  Head,
-};
+            if (block.type !== "numbered_list_item") {
+               listNumber = null;
+            }
 
-export default function PostPage({ source, frontMatter }) {
-  return (
-    <Layout meta={frontMatter}>
-      <MDXRemote {...source} components={components} />
-    </Layout>
-  );
+            if (block.type === "paragraph") {
+
+               return (
+                  <Text py={1} fontSize={12} key={block.id}>
+                     {block.paragraph.rich_text[0]?.plain_text}
+                  </Text>
+               );
+            }
+
+            if (block.type === "heading_2") {
+               return (
+                  <Heading variant="h2" fontSize={18} pt={4} pb={2} key={block.id}>
+                     {block.heading_2.rich_text[0].plain_text}
+                  </Heading>
+               )
+            }
+
+            if (block.type === "heading_3") {
+               return (
+                  <Heading variant="h3" fontSize={15} pt={2} pb={1} key={block.id}>
+                     {block.heading_3.rich_text[0].plain_text}
+                  </Heading>
+               )
+            }
+
+            if (block.type === "bulleted_list_item") {
+               return (
+                  <Text py={1} fontSize={12} key={block.id}>
+                     - {block.bulleted_list_item.rich_text[0]?.plain_text}
+                  </Text>
+               )
+            }
+
+            if (block.type === "numbered_list_item") {
+               listNumber++;
+               return (
+                  <Text py={1.5} fontSize={12} key={block.id}>
+                     {listNumber}. {block.numbered_list_item.rich_text[0]?.plain_text}
+                  </Text>
+               )
+            }
+         })}
+      </LayOut >
+   )
 }
 
-export const getStaticProps = async ({ params }) => {
-  const postFilePath = path.join(POSTS_PATH, `${params.slug}.mdx`);
-  const source = fs.readFileSync(postFilePath);
+export default ReceiptPage
 
-  const { content, data } = matter(source);
+export const getServerSideProps = async (context) => {
+   // get slug from context
+   const { slug } = context.query;
+   // get notion page
+   const response = await notion.pages.retrieve({
+      page_id: slug
+   });
+   // get block children
+   const blockChildren = await notion.blocks.children.list({
+      block_id: slug
+   });
+   console.log(blockChildren);
+   return {
+      props: {
+         receipt: response,
+         blockChildren: blockChildren
+      }
+   }
 
-  const mdxSource = await serialize(content, {
-    // Optionally pass remark/rehype plugins
-    mdxOptions: {
-      remarkPlugins: [],
-      rehypePlugins: [],
-    },
-    scope: data,
-  });
-
-  return {
-    props: {
-      source: mdxSource,
-      frontMatter: data,
-    },
-  };
-};
-
-export const getStaticPaths = async () => {
-  const paths = postFilePaths
-    // Remove file extensions for page paths
-    .map((path) => path.replace(/\.mdx?$/, ""))
-    // Map the path into the static paths object required by Next.js
-    .map((slug) => ({ params: { slug } }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
+}
