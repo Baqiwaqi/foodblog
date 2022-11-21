@@ -60,7 +60,7 @@ const NavBar = (props) => {
                </Heading>
             </Flex>
 
-            <Stack
+            {/* <Stack
                direction={{ base: "column", md: "row" }}
                display={{ base: "none", md: "flex" }}
                width={{ base: "full", md: "auto" }}
@@ -70,17 +70,17 @@ const NavBar = (props) => {
             >
                <LinkItem href="/notion" path={path}>
                   Notion
-               </LinkItem>
+               </LinkItem> *
             </Stack>
 
-            {/* <Box flex={1} align="right">
+             <Box flex={1} align="right">
           <ThemeToggleButton />
           <Box ml={2} display={{ base: "inline-block", md: "none" }}>
             <Menu>
               <MenuButton
                 as={IconButton}
                 icon={<HamburgerIcon />}
-                variant="outline"
+                variant="outlie"
                 aria-label="Optoins"
               />
               <MenuList>
