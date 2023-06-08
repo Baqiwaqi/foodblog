@@ -15,6 +15,6 @@ export const siteConfig = {
       // }
    ],
    links: {
-      github: "https://github.com",
+      github: "https://github.com/Baqiwaqi/foodblog",
    },
 }
