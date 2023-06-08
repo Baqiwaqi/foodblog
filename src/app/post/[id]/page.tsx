@@ -24,7 +24,7 @@ export default async function Post({ params }: Props) {
    let listNumber = 0;
    return (
       <div className="container max-w-4xl mx-auto">
-         <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <Image
                className="rounded-lg"
                src={post.properties.URL.url}
@@ -118,7 +118,6 @@ export default async function Post({ params }: Props) {
                   )
                }
             })}
-
          </div>
       </div>
    )
