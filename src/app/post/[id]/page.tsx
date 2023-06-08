@@ -62,60 +62,24 @@ export default async function Post({ params }: Props) {
                   listNumber = 0;
                }
 
-               if (block.type === "paragraph") {
-
-                  return (
-                     // <p py={1} fontSize={12} key={block.id}>
-                     <p className="py-6 text-sm" key={block.id}>
-                        {block.paragraph.rich_text[0]?.plain_text}
-                     </p>
-                  );
-               }
-
-               if (block.type === "heading_1") {
-                  return (
-                     // <Heading variant="h1" fontSize={21} pt={4} pb={2} key={block.id}>
-                     <h1 className="text-3xl font-bold py-4" key={block.id}>
-                        {block.heading_1.rich_text[0].plain_text}
-                     </h1>
-                  )
-               }
-
-               if (block.type === "heading_2") {
-                  return (
-                     // <Heading variant="h2" fontSize={18} pt={4} pb={2} key={block.id}>
-                     <h2 className="text-2xl font-bold py-4" key={block.id}>
-                        {block.heading_2.rich_text[0].plain_text}
-                     </h2>
-                  )
-               }
-
-               if (block.type === "heading_3") {
-                  return (
-                     // <Heading variant="h3" fontSize={15} pt={2} pb={1} key={block.id}>
-                     <h3 className="text-xl font-bold py-2" key={block.id}>
-                        {block.heading_3.rich_text[0].plain_text}
-                     </h3>
-                  )
-               }
-
-               if (block.type === "bulleted_list_item") {
-                  return (
-                     // <Text py={1} fontSize={12} key={block.id}>
-                     <p className="py-1 text-sm" key={block.id}>
-                        {block.bulleted_list_item.rich_text[0]?.plain_text}
-                     </p>
-                  )
-               }
-
-               if (block.type === "numbered_list_item") {
-                  listNumber++;
-                  return (
-                     // <Text py={1.5} fontSize={12} key={block.id}>
-                     <span className="py-1 text-sm" key={block.id}>
-                        {listNumber}. {block.numbered_list_item.rich_text[0]?.plain_text} <br />
-                     </span>
-                  )
+               switch (block.type) {
+                  case "paragraph":
+                     return <Paragraph block={block} />;
+                  case "heading_1":
+                     return <Heading1 block={block} />;
+                  case "heading_2":
+                     return <Heading2 block={block} />;
+                  case "heading_3":
+                     return <Heading3 block={block} />;
+                  case "bulleted_list_item":
+                     return <BulletedListItem block={block} />;
+                  case "numbered_list_item":
+                     return (
+                        listNumber++,
+                        <NumberedListItem block={block} listNumber={listNumber} />
+                     );
+                  default:
+                     return null;
                }
             })}
          </div>
@@ -123,3 +87,10 @@ export default async function Post({ params }: Props) {
    )
 }
 
+
+const Paragraph = ({ block }: { block: Block }) => <p className="py-6 text-sm" key={block.id}>{block.paragraph.rich_text[0]?.plain_text}</p>;
+const Heading1 = ({ block }: { block: Block }) => <h1 className="text-3xl font-bold py-4" key={block.id}>{block.heading_1.rich_text[0].plain_text}</h1>;
+const Heading2 = ({ block }: { block: Block }) => <h2 className="text-2xl font-bold py-4" key={block.id}>{block.heading_2.rich_text[0].plain_text}</h2>;
+const Heading3 = ({ block }: { block: Block }) => <h3 className="text-xl font-bold py-2" key={block.id}>{block.heading_3.rich_text[0].plain_text}</h3>;
+const BulletedListItem = ({ block }: { block: Block }) => <p className="py-1 text-sm" key={block.id}>{block.bulleted_list_item.rich_text[0]?.plain_text}</p>;
+const NumberedListItem = ({ block, listNumber }: { block: Block, listNumber: number }) => <span className="py-1 text-sm" key={block.id}>{listNumber}. {block.numbered_list_item.rich_text[0]?.plain_text} <br /></span>;
