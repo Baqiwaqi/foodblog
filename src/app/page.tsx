@@ -3,6 +3,8 @@ import { Post } from '@/type/post';
 import Image from 'next/image'
 import Link from 'next/link';
 
+export const revalidate = 60;
+
 export default async function Home() {
    const response = await notion.databases.query({
       database_id: process.env.NOTION_DATABASE_ID as string,
